@@ -43,12 +43,15 @@ def marcar():
                     if not item:
                         item = f"Indefinido ({x}, {y})"
                     estrelas[(x, y)] = item
-                elif evento.button == 3:  # Botão direito do mouse para remover estrelas
+                elif evento.button == pygame.MOUSEBUTTONDOWN:  # Botão direito do mouse para remover estrelas
                     x, y = pygame.mouse.get_pos()
                     # Verificar se o clique está próximo de alguma estrela existente
                     for pos in list(estrelas.keys()):  # Convertendo para lista para evitar RuntimeError
                         if distancia(pos, (x, y)) <= 10:  # Verifica se está dentro de um raio de 10 pixels
                             del estrelas[pos]
+                elif evento.type == pygame.K_BACKSPACE:  # Tecla Backspace para deletar todas as estrelas
+                            estrelas.clear()
+
         # Preenche a tela com o fundo
         tela.blit(fundo, (0, 0))
 
