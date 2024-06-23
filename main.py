@@ -9,34 +9,27 @@ import math
 pygame.init()
 pygame.font.init()
 
-# Configurações da tela
 tamanho = (1000, 563)
 fps = pygame.time.Clock()
 tela = pygame.display.set_mode(tamanho)
 pygame.display.set_caption("Universe")
 
-# Ícone e fundo
 icone = pygame.image.load("assets/space.png")
 pygame.display.set_icon(icone)
 fundo = pygame.image.load("assets/bg.jpg")
 
-# Cores e fonte
 branco = (255, 255, 255)
 fonte = pygame.font.SysFont("comicsans", 15)
 
-# Dicionário para armazenar estrelas
 estrelas = {}
 
-# Inicializa o Tkinter
 root = tk.Tk()
 root.withdraw()
 
-# Teclas especiais
 TECLA_SALVAR = pygame.K_F10
 TECLA_CARREGAR = pygame.K_F11
 TECLA_EXCLUIR = pygame.K_F12
 
-# Arquivo de marcações
 ARQUIVO_MARCACOES = "marcacoes.pkl"
 
 def salvar_marcacoes():
@@ -55,13 +48,13 @@ def carregar_marcacoes():
     except IOError as e:
         print("Erro ao carregar marcações:", e)
 
-def excluir_marcacoes():
+def excluirMarcacoes():
     estrelas.clear()
 
 def distancia(coord1, coord2):
     return math.sqrt((coord2[0] - coord1[0]) ** 2 + (coord2[1] - coord1[1]) ** 2)
 
-def mostrar_mensagem(texto, pos):
+def mostrarMensagem(texto, pos):
     mensagem = fonte.render(texto, True, branco)
     tela.blit(mensagem, pos)
 
@@ -91,12 +84,12 @@ def marcar():
                 sys.exit()
             elif evento.type == pygame.MOUSEBUTTONUP:
                 x, y = pygame.mouse.get_pos()
-                if evento.button == 1:  # Adicionar estrela
+                if evento.button == 1:  
                     nome = simpledialog.askstring("Space", "Nome da estrela:")
                     if not nome:
                         nome = f"Indefinido ({x}, {y})"
                     estrelas[(x, y)] = nome
-                elif evento.button == 3:  # Remover estrela
+                elif evento.button == 3:  
                     for pos in list(estrelas.keys()):
                         if distancia(pos, (x, y)) <= 10:
                             del estrelas[pos]
@@ -110,7 +103,7 @@ def marcar():
                     mensagem_temporaria = "Marcações carregadas (F11)."
                     contador_tempo = pygame.time.get_ticks()
                 elif evento.key == TECLA_EXCLUIR:
-                    excluir_marcacoes()
+                    excluirMarcacoes()
                     mensagem_temporaria = "Marcações excluídas (F12)."
                     contador_tempo = pygame.time.get_ticks()
 
@@ -118,16 +111,16 @@ def marcar():
 
         for xyEstrela, nome in estrelas.items():
             pygame.draw.circle(tela, branco, xyEstrela, 4)
-            mostrar_mensagem(nome, (xyEstrela[0] + 10, xyEstrela[1] - 10))
+            mostrarMensagem(nome, (xyEstrela[0] + 10, xyEstrela[1] - 10))
 
         desenhar_tracado_sequencial()
 
-        if mensagem_temporaria:
-            mostrar_mensagem(mensagem_temporaria, (10, 10))
+        if mensagemTemporaria:
+            mostrarMensagem(mensagemTemporaria, (10, 10))
             if pygame.time.get_ticks() - contador_tempo > 2000:
-                mensagem_temporaria = None
+                mensagemTemporaria = None
 
-        mostrar_mensagem("F10: Salvar | F11: Carregar | F12: Excluir | Botão direito: Excluir apenas uma | Botão esquerdo: Criar", (10, 40))
+        mostrarMensagem("F10: Salvar | F11: Carregar | F12: Excluir | Botão direito: Excluir apenas uma | Botão esquerdo: Criar", (10, 40))
 
         pygame.display.update()
         fps.tick(60)
