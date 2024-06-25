@@ -71,10 +71,10 @@ def desenhar_tracado_sequencial():
             texto_distancia = fonte.render(f"{distancia_entre_estrelas:.2f}", True, branco)
             tela.blit(texto_distancia, (mediaX, mediaY))
 
-# Correção dos nomes de variáveis
+
 def marcar():
     carregar_marcacoes()
-    mensagem_temporaria = None  # Corrigido para mensagem_temporaria
+    mensagem_temporaria = None
     contador_tempo = 0
 
     while True:
