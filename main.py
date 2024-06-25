@@ -71,9 +71,10 @@ def desenhar_tracado_sequencial():
             texto_distancia = fonte.render(f"{distancia_entre_estrelas:.2f}", True, branco)
             tela.blit(texto_distancia, (mediaX, mediaY))
 
+# Correção dos nomes de variáveis
 def marcar():
     carregar_marcacoes()
-    mensagem_temporaria = None
+    mensagem_temporaria = None  # Corrigido para mensagem_temporaria
     contador_tempo = 0
 
     while True:
@@ -115,10 +116,10 @@ def marcar():
 
         desenhar_tracado_sequencial()
 
-        if mensagemTemporaria:
-            mostrarMensagem(mensagemTemporaria, (10, 10))
+        if mensagem_temporaria:
+            mostrarMensagem(mensagem_temporaria, (10, 10))
             if pygame.time.get_ticks() - contador_tempo > 2000:
-                mensagemTemporaria = None
+                mensagem_temporaria = None
 
         mostrarMensagem("F10: Salvar | F11: Carregar | F12: Excluir | Botão direito: Excluir apenas uma | Botão esquerdo: Criar", (10, 40))
 
